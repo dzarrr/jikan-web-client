@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router";
 import { Suspense, lazy } from "react";
+import { Skeleton } from "antd";
 
 import AppLayout from "./AppLayout";
 const ListPage = lazy(() => import("./pages/List/ListPage"));
@@ -12,7 +13,7 @@ function App() {
         <Route
           index
           element={
-            <Suspense fallback={<div>...loading</div>}>
+            <Suspense fallback={<Skeleton active />}>
               <ListPage />
             </Suspense>
           }
@@ -20,7 +21,7 @@ function App() {
         <Route
           path="/detail"
           element={
-            <Suspense fallback={<div>...loading</div>}>
+            <Suspense fallback={<Skeleton active />}>
               <DetailPage />
             </Suspense>
           }
