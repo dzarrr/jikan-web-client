@@ -3,6 +3,7 @@ import { Suspense, lazy } from "react";
 import { Skeleton, Result } from "antd";
 
 import AppLayout from "./AppLayout";
+import NotFoundResult from "./component/NotFoundResult";
 const ListPage = lazy(() => import("./pages/List/ListPage"));
 const DetailPage = lazy(() => import("./pages/Detail/DetailPage"));
 
@@ -10,16 +11,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<AppLayout />}>
-        <Route
-          path="*"
-          element={
-            <Result
-              status="404"
-              title="404"
-              subTitle="Sorry, the page you visited does not exist."
-            />
-          }
-        />
+        <Route path="*" element={<NotFoundResult />} />
         <Route
           index
           element={
