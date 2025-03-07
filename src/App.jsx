@@ -1,26 +1,35 @@
-import { useState } from "react";
-import { Button, Menu, Layout } from "antd";
+import { Routes, Route } from "react-router";
+import { Suspense, lazy } from "react";
+import { Skeleton, Result } from "antd";
 
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-
-const { Header, Content, Footer } = Layout;
+import AppLayout from "./AppLayout";
+import NotFoundResult from "./component/NotFoundResult";
+const ListPage = lazy(() => import("./pages/List/ListPage"));
+const DetailPage = lazy(() => import("./pages/Detail/DetailPage"));
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <Layout
-        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-      >
-        <Header />
-        <Content style={{ padding: "24px 48px" }}>
-          <Button type="primary">Test</Button>
-        </Content>
-        <Footer style={{ textAlign: "center" }}>@2025</Footer>
-      </Layout>
-    </>
+    <Routes>
+      <Route path="/" element={<AppLayout />}>
+        <Route path="*" element={<NotFoundResult />} />
+        <Route
+          index
+          element={
+            <Suspense fallback={<Skeleton active />}>
+              <ListPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/detail"
+          element={
+            <Suspense fallback={<Skeleton active />}>
+              <DetailPage />
+            </Suspense>
+          }
+        />
+      </Route>
+    </Routes>
   );
 }
 
