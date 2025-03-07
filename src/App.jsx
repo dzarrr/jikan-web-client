@@ -1,14 +1,8 @@
-import { useState } from "react";
 import { Button, Menu, Layout } from "antd";
-
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 
 const { Header, Content, Footer } = Layout;
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <Layout
