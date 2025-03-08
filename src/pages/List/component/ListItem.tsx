@@ -17,6 +17,9 @@ const StyledCard = styled(Card)`
 `;
 
 const Title = styled.h3`
+  text-decoration: underline;
+  text-decoration-color: #eb2f96;
+  text-decoration-thickness: 3px;
   font-size: 1.2rem;
   font-weight: bold;
   margin: 0;
