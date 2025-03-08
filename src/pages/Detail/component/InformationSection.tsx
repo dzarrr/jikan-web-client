@@ -37,16 +37,6 @@ export default function InformationSection({
         <strong>Status:</strong> {animeData?.status}
       </p>
       <p>
-        {/* TODO: correctly display this after installing dayjs */}
-        <strong>Aired:</strong> {animeData?.aired.from}
-      </p>
-      <p>
-        <strong>Premiered:</strong> {animeData?.season} {animeData?.year}
-      </p>
-      <p>
-        <strong>Broadcast:</strong> {animeData?.broadcast?.string}
-      </p>
-      <p>
         <strong>Producers:</strong>{" "}
         {animeData?.producers?.map((p) => p.name).join(", ")}
       </p>
