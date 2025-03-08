@@ -40,6 +40,7 @@ function AppLayout() {
         minHeight: "100vh",
       }}
     >
+      {/* TODO: handle redirect to root page onClick */}
       <StyledHeader>
         <img style={{ maxHeight: "5em" }} src={headerImageUrl} />
         <HeaderText>(Not) MyAnimeList</HeaderText>
