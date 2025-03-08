@@ -68,7 +68,7 @@ export default function DetailPage() {
               <LeftSection style={{ maxWidth: "17.5em" }}>
                 <Image
                   width={"15em"}
-                  src={animeData?.data.images.jpg.large_image_url}
+                  src={animeData?.data.images.webp.large_image_url}
                 />
                 <InformationSection animeData={animeData?.data} />
               </LeftSection>

@@ -50,6 +50,7 @@ export default function ListItem({ animeData }: { animeData: AnimeData }) {
         preview={false}
         height={"25em"}
         src={animeData.images.webp.image_url}
+        fallback="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
       />
       <Title>{animeData.title_english || animeData.title}</Title>
       <Metadata>
