@@ -1,10 +1,35 @@
-import { notification, Skeleton, Image } from "antd";
+import { notification, Skeleton, Image, Tag, Divider } from "antd";
 import { useState } from "react";
 import { useParams } from "react-router";
 import { useRequest } from "ahooks";
+import { styled } from "styled-components";
 import { getAnimeById } from "../../services/animeService";
 import ErrorResult from "../../component/ErrorResult";
 import InformationSection from "./component/InformationSection";
+import RatingSection from "./component/RatingSection";
+
+const DetailContainer = styled.div`
+  min-height: 80vh;
+  padding: 0 5em;
+`;
+
+const DetailContent = styled.div`
+  display: flex;
+  gap: 2.5em;
+`;
+
+const LeftSection = styled.div`
+  max-width: 17.5em;
+`;
+
+const RightSection = styled.div`
+  flex-grow: 1;
+`;
+
+const Title = styled.div`
+  text-decoration: underline;
+  text-decoration-color: #eb2f96;
+`;
 
 export default function DetailPage() {
   const { id } = useParams();
@@ -35,24 +60,24 @@ export default function DetailPage() {
         <ErrorResult />
       ) : (
         animeData && (
-          <div style={{ minHeight: "80vh", padding: "0 5em" }}>
-            <div>
+          <DetailContainer>
+            <Title>
               <h1>{animeData?.data.title_english}</h1>
-            </div>
-            <div style={{ display: "flex", gap: "2.5em" }}>
-              <div style={{ maxWidth: "17.5em" }}>
+            </Title>
+            <DetailContent>
+              <LeftSection style={{ maxWidth: "17.5em" }}>
                 <Image
                   width={"15em"}
                   src={animeData?.data.images.jpg.large_image_url}
                 />
                 <InformationSection animeData={animeData?.data} />
-              </div>
-              <div style={{ flexGrow: 1, backgroundColor: "green" }}>
-                <div>Score etc</div>
-                <div>{animeData?.data.synopsis}</div>
-              </div>
-            </div>
-          </div>
+              </LeftSection>
+              <RightSection style={{ flexGrow: 1 }}>
+                <RatingSection animeData={animeData?.data} />
+                <div style={{ padding: "2em" }}>{animeData?.data.synopsis}</div>
+              </RightSection>
+            </DetailContent>
+          </DetailContainer>
         )
       )}
     </div>

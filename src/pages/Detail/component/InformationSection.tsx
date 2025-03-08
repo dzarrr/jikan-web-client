@@ -12,6 +12,12 @@ const InformationContainer = styled.div`
   }
 `;
 
+const StyledDivider = styled(Divider)`
+  margin: 0;
+  border-color: #eb2f96;
+  border-width: medium;
+`;
+
 export default function InformationSection({
   animeData,
 }: {
@@ -20,7 +26,7 @@ export default function InformationSection({
   return (
     <InformationContainer>
       <h3>Information</h3>
-      <Divider style={{ margin: 0 }} />
+      <StyledDivider style={{ margin: 0 }} />
       <p>
         <strong>Type:</strong> {animeData?.type}
       </p>
