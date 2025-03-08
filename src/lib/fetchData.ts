@@ -5,7 +5,7 @@ export default async function fetchData<T>(
   const response = await fetch(url, options);
 
   if (!response.ok) {
-    throw new Error(`HTTP Error! Status: ${response.status}`);
+    throw new Error(`Server Error! Status: ${response.status}`);
   }
 
   return response.json();

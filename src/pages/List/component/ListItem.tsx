@@ -37,32 +37,18 @@ const GenreList = styled.p`
   margin: 0.25em 0;
 `;
 
-export default function ListItem({
-  loading,
-  animeData,
-}: {
-  loading: boolean;
-  animeData: AnimeData;
-}) {
+export default function ListItem({ animeData }: { animeData: AnimeData }) {
   return (
     <StyledCard hoverable>
-      {loading ? (
-        <Skeleton />
-      ) : (
-        <>
-          <Image height={"25em"} src={animeData.images.jpg.large_image_url} />
-          <Title>{animeData.title_english || animeData.title}</Title>
-          <Metadata>
-            {animeData.type} | {animeData.episodes ?? "?"} episodes
-          </Metadata>
-          <Score>
-            <b>{animeData.score}</b> / 10
-          </Score>
-          <GenreList>
-            {animeData.genres.map((g) => g.name).join(", ")}
-          </GenreList>
-        </>
-      )}
+      <Image height={"25em"} src={animeData.images.jpg.large_image_url} />
+      <Title>{animeData.title_english || animeData.title}</Title>
+      <Metadata>
+        {animeData.type} | {animeData.episodes ?? "?"} episodes
+      </Metadata>
+      <Score>
+        <b>{animeData.score}</b> / 10
+      </Score>
+      <GenreList>{animeData.genres.map((g) => g.name).join(", ")}</GenreList>
     </StyledCard>
   );
 }
