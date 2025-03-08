@@ -46,7 +46,11 @@ export default function ListItem({ animeData }: { animeData: AnimeData }) {
       onClick={() => navigate(`detail/${animeData.mal_id}`)}
       hoverable
     >
-      <Image height={"25em"} src={animeData.images.jpg.large_image_url} />
+      <Image
+        preview={false}
+        height={"25em"}
+        src={animeData.images.webp.image_url}
+      />
       <Title>{animeData.title_english || animeData.title}</Title>
       <Metadata>
         {animeData.type} | {animeData.episodes ?? "?"} episodes
