@@ -1,4 +1,5 @@
-import { Card, Skeleton, Image } from "antd";
+import { Card, Image } from "antd";
+import { useNavigate } from "react-router";
 import { styled } from "styled-components";
 import { AnimeData } from "../../../services/animeServiceType";
 
@@ -38,9 +39,18 @@ const GenreList = styled.p`
 `;
 
 export default function ListItem({ animeData }: { animeData: AnimeData }) {
+  const navigate = useNavigate();
+
   return (
-    <StyledCard hoverable>
-      <Image height={"25em"} src={animeData.images.jpg.large_image_url} />
+    <StyledCard
+      onClick={() => navigate(`detail/${animeData.mal_id}`)}
+      hoverable
+    >
+      <Image
+        preview={false}
+        height={"25em"}
+        src={animeData.images.webp.image_url}
+      />
       <Title>{animeData.title_english || animeData.title}</Title>
       <Metadata>
         {animeData.type} | {animeData.episodes ?? "?"} episodes

@@ -105,7 +105,11 @@ interface Pagination {
   items: PaginationItems;
 }
 
-export interface AnimeResponse {
+export interface GetAnimeSearchResponse {
   data: AnimeData[];
   pagination: Pagination;
+}
+
+export interface GetAnimeByIdResponse {
+  data: AnimeData;
 }
