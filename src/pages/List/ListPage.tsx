@@ -1,10 +1,11 @@
-import { Skeleton, notification, Pagination, Form, Input, Button } from "antd";
-import { useState } from "react";
+import { Skeleton, notification, Pagination, Input } from "antd";
+import { useState, useEffect } from "react";
 import { useRequest } from "ahooks";
 import styled from "styled-components";
 import { getAnimeSearch } from "../../services/animeService";
 import ListItem from "./component/ListItem";
 import ErrorResult from "../../component/ErrorResult";
+import { useNavigate } from "react-router";
 
 // TODO: add UI for empty
 
@@ -49,6 +50,8 @@ export default function ListPage() {
   });
   const [showErrorPage, setShowErrorPage] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
+
   const { data: animeData, loading } = useRequest(
     () => {
       return getAnimeSearch({
@@ -70,6 +73,48 @@ export default function ListPage() {
     }
   );
 
+  function handlePageChange(newPage: number) {
+    const currentParams = new URLSearchParams(location.search);
+
+    currentParams.set("page", newPage.toString());
+
+    navigate(`?${currentParams.toString()}`);
+  }
+
+  function handlePageSizeChange(newPage: number, newPageSize: number) {
+    const currentParams = new URLSearchParams(location.search);
+
+    currentParams.set("page", newPage.toString());
+    currentParams.set("limit", newPageSize.toString());
+
+    navigate(`?${currentParams.toString()}`);
+  }
+
+  function handleSearchSubmit(searchQuery: string) {
+    const currentParams = new URLSearchParams(location.search);
+
+    currentParams.set("q", searchQuery);
+    currentParams.set("page", "1");
+    currentParams.set("limit", DEFAULT_PAGE_SIZE.toString());
+
+    navigate(`?${currentParams.toString()}`);
+  }
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const pageFromQueryParam = Number(params.get("page")) || 1;
+    const limitFromQueryParam =
+      Number(params.get("limit")) || DEFAULT_PAGE_SIZE;
+    const searchTextFromQueryParam = params.get("q") || "";
+
+    setPagination({
+      currentPage: pageFromQueryParam,
+      pageSize: limitFromQueryParam,
+    });
+
+    setSearchText(searchTextFromQueryParam);
+  }, [location.search]);
+
   return (
     <>
       <StyledSearch
@@ -79,12 +124,7 @@ export default function ListPage() {
         loading={loading}
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
-        onSearch={() =>
-          setPagination({
-            currentPage: 1,
-            pageSize: DEFAULT_PAGE_SIZE,
-          })
-        }
+        onSearch={handleSearchSubmit}
       />
 
       <ListContainer>
@@ -109,18 +149,8 @@ export default function ListPage() {
             simple
             showSizeChanger
             current={pagination.currentPage}
-            onChange={(newPage) => {
-              setPagination((prevPagination) => ({
-                ...prevPagination,
-                currentPage: newPage,
-              }));
-            }}
-            onShowSizeChange={(newCurrentPage, newPageSize) => {
-              setPagination({
-                currentPage: newCurrentPage,
-                pageSize: newPageSize,
-              });
-            }}
+            onChange={handlePageChange}
+            onShowSizeChange={handlePageSizeChange}
             total={animeData.pagination.items.total}
             pageSize={pagination.pageSize}
             pageSizeOptions={[10, 15, 25]}
