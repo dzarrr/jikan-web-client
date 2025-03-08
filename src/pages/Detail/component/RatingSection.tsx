@@ -43,9 +43,11 @@ export default function RatingSection({ animeData }: { animeData: AnimeData }) {
           </Tag>
         </div>
         <div style={{ fontSize: "36px" }}>
-          <b>{animeData.score}</b>
+          <b>{animeData.score || "N/A"}</b>
         </div>
-        <div>{`${animeData.scored_by.toLocaleString()} users`}</div>
+        <div>{`${
+          animeData.scored_by ? animeData.scored_by.toLocaleString() : "N/A"
+        } users`}</div>
       </ScoreContainer>
       <RankingContainer>
         <RankingUpperSection>
