@@ -24,7 +24,9 @@ function AppLayout() {
         minHeight: "100vh",
       }}
     >
-      <Header />
+      <Header>
+        <img src={"./bocchi.png"} />
+      </Header>
       <StyledContent>
         <ErrorBoundary fallback={<ErrorResult />}>
           <Outlet />

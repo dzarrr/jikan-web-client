@@ -2,12 +2,12 @@ import { Skeleton, notification, Pagination, Input } from "antd";
 import { useState, useEffect } from "react";
 import { useRequest } from "ahooks";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
+
 import { getAnimeSearch } from "../../services/animeService";
 import ListItem from "./component/ListItem";
 import ErrorResult from "../../component/ErrorResult";
-import { useNavigate } from "react-router";
-
-// TODO: add UI for empty
+import EmptySearchResult from "./component/EmptySearchResult";
 
 const DEFAULT_PAGE_SIZE = 25;
 const { Search } = Input;
@@ -126,25 +126,26 @@ export default function ListPage() {
         onChange={(e) => setSearchText(e.target.value)}
         onSearch={handleSearchSubmit}
       />
-
       <ListContainer>
         {notiContextHolder}
-        {loading ? (
-          <Skeleton />
-        ) : showErrorPage ? (
-          <ErrorResult />
-        ) : (
+        {loading && <Skeleton />}
+        {showErrorPage && <ErrorResult />}
+        {!loading && !showErrorPage && (
           <>
-            {animeData?.data?.map((anime) => {
-              return <ListItem key={anime.mal_id} animeData={anime} />;
-            })}
+            {animeData?.pagination.items.total === 0 ? (
+              <EmptySearchResult />
+            ) : (
+              animeData?.data?.map((anime) => (
+                <ListItem key={anime.mal_id} animeData={anime} />
+              ))
+            )}
           </>
         )}
       </ListContainer>
       <PaginationContainer
         style={{ display: "flex", justifyContent: "center", marginTop: "4em" }}
       >
-        {animeData && !loading && (
+        {animeData && animeData.data.length > 0 && !loading && (
           <Pagination
             simple
             showSizeChanger
