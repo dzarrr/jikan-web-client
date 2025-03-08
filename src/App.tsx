@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router";
 import { Suspense, lazy } from "react";
-import { Skeleton, Result } from "antd";
+import { Skeleton } from "antd";
 
 import AppLayout from "./AppLayout";
 import NotFoundResult from "./component/NotFoundResult";
