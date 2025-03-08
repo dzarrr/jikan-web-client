@@ -6,6 +6,9 @@ import { getAnimeSearch } from "../../services/animeService";
 import ListItem from "./component/ListItem";
 import ErrorResult from "../../component/ErrorResult";
 
+// TODO: add UI for empty
+
+const DEFAULT_PAGE_SIZE = 25;
 const { Search } = Input;
 
 const ListContainer = styled.div`
@@ -42,21 +45,18 @@ export default function ListPage() {
   const [notiApi, notiContextHolder] = notification.useNotification();
   const [pagination, setPagination] = useState({
     currentPage: 1,
-    pageSize: 10,
+    pageSize: DEFAULT_PAGE_SIZE,
   });
   const [showErrorPage, setShowErrorPage] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const {
-    data: animeData,
-    loading,
-    run: runGetAnimeSearch,
-  } = useRequest(
-    () =>
-      getAnimeSearch({
+  const { data: animeData, loading } = useRequest(
+    () => {
+      return getAnimeSearch({
         q: searchText,
         page: pagination.currentPage,
         limit: pagination.pageSize,
-      }),
+      });
+    },
     {
       onError: (e) => {
         notiApi.open({
@@ -79,7 +79,12 @@ export default function ListPage() {
         loading={loading}
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
-        onSearch={(value) => runGetAnimeSearch()}
+        onSearch={() =>
+          setPagination({
+            currentPage: 1,
+            pageSize: DEFAULT_PAGE_SIZE,
+          })
+        }
       />
 
       <ListContainer>
