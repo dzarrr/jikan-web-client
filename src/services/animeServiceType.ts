@@ -54,7 +54,7 @@ interface Producer {
   url: string;
 }
 
-interface AnimeData {
+export interface AnimeData {
   mal_id: number;
   url: string;
   images: Images;
