@@ -1,10 +1,19 @@
 import { Outlet } from "react-router";
-import { Layout, Result } from "antd";
+import { Layout } from "antd";
+import { styled } from "styled-components";
 import { ErrorBoundary } from "react-error-boundary";
 
 import ErrorResult from "./component/ErrorResult";
 
 const { Header, Content, Footer } = Layout;
+
+const StyledContent = styled(Content)`
+  padding: 3em 5em;
+
+  @media (max-width: 480px) {
+    padding: 1em;
+  }
+`;
 
 function AppLayout() {
   return (
@@ -16,11 +25,11 @@ function AppLayout() {
       }}
     >
       <Header />
-      <Content style={{ padding: "24px 48px" }}>
+      <StyledContent>
         <ErrorBoundary fallback={<ErrorResult />}>
           <Outlet />
         </ErrorBoundary>
-      </Content>
+      </StyledContent>
       <Footer style={{ textAlign: "center" }}>@2025</Footer>
     </Layout>
   );
