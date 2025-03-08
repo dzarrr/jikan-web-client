@@ -12,6 +12,17 @@ const ListContainer = styled.div`
   gap: 2.5em;
 `;
 
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 4em;
+
+  ul {
+    display: flex;
+    align-items: center;
+  }
+`;
+
 export default function ListPage() {
   const [notiApi, notiContextHolder] = notification.useNotification();
   const [pagination, setPagination] = useState({
@@ -56,7 +67,7 @@ export default function ListPage() {
           </>
         )}
       </ListContainer>
-      <div
+      <PaginationContainer
         style={{ display: "flex", justifyContent: "center", marginTop: "4em" }}
       >
         {animeData && !loading && (
@@ -81,7 +92,7 @@ export default function ListPage() {
             pageSizeOptions={[10, 15, 25]}
           />
         )}
-      </div>
+      </PaginationContainer>
     </>
   );
 }
