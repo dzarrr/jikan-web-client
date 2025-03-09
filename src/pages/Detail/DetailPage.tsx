@@ -100,7 +100,7 @@ export default function DetailPage() {
               </LeftSection>
               <RightSection style={{ flexGrow: 1 }}>
                 <RatingSection animeData={animeData?.data} />
-                <Synopsis>{animeData?.data.synopsis}</Synopsis>
+                <Synopsis>{animeData?.data.synopsisfdsfsf}</Synopsis>
               </RightSection>
             </DetailContent>
           </DetailContainer>
