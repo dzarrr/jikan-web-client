@@ -1,4 +1,4 @@
-import { notification, Skeleton, Image, Tag, Divider } from "antd";
+import { notification, Skeleton, Image } from "antd";
 import { useState } from "react";
 import { useParams } from "react-router";
 import { useRequest } from "ahooks";
@@ -11,24 +11,50 @@ import RatingSection from "./component/RatingSection";
 const DetailContainer = styled.div`
   min-height: 80vh;
   padding: 0 5em;
+
+  @media (max-width: 1024px) {
+    padding: 0 1em;
+  }
 `;
 
 const DetailContent = styled.div`
   display: flex;
   gap: 2.5em;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 const LeftSection = styled.div`
   max-width: 17.5em;
+
+  @media (max-width: 1024px) {
+    max-width: unset;
+  }
 `;
 
 const RightSection = styled.div`
   flex-grow: 1;
 `;
 
+const Synopsis = styled.div`
+  padding: 2em;
+
+  @media (max-width: 1024px) {
+    padding: 2em 0;
+  }
+`;
+
 const Title = styled.div`
   text-decoration: underline;
   text-decoration-color: #eb2f96;
+
+  @media (max-width: 1024px) {
+    h1 {
+      font-size: 24px;
+    }
+  }
 `;
 
 export default function DetailPage() {
@@ -65,7 +91,7 @@ export default function DetailPage() {
               <h1>{animeData?.data.title_english}</h1>
             </Title>
             <DetailContent>
-              <LeftSection style={{ maxWidth: "17.5em" }}>
+              <LeftSection>
                 <Image
                   width={"15em"}
                   src={animeData?.data.images.webp.large_image_url}
@@ -74,7 +100,7 @@ export default function DetailPage() {
               </LeftSection>
               <RightSection style={{ flexGrow: 1 }}>
                 <RatingSection animeData={animeData?.data} />
-                <div style={{ padding: "2em" }}>{animeData?.data.synopsis}</div>
+                <Synopsis>{animeData?.data.synopsis}</Synopsis>
               </RightSection>
             </DetailContent>
           </DetailContainer>

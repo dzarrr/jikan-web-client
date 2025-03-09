@@ -5,6 +5,12 @@ import { AnimeData } from "../../../services/animeServiceType";
 const RatingContainer = styled.div`
   display: flex;
   align-items: stretch;
+
+  @media (max-width: 1024px) {
+    border-top: solid 3px #eb2f96;
+    border-bottom: solid 3px #eb2f96;
+    padding: 1em 0;
+  }
 `;
 
 const ScoreContainer = styled.div`
@@ -13,6 +19,11 @@ const ScoreContainer = styled.div`
   align-items: center;
   padding: 2em;
   gap: 0.25em;
+
+  @media (max-width: 1024px) {
+    padding: 0 0.5em;
+    font-size: 10px;
+  }
 `;
 
 const RankingContainer = styled.div`
@@ -20,17 +31,30 @@ const RankingContainer = styled.div`
   justify-content: center;
   gap: 1em;
   flex-direction: column;
+
+  @media (max-width: 1024px) {
+    margin-left: 2em;
+  }
 `;
 
 const RankingUpperSection = styled.div`
   display: flex;
   gap: 0.5em;
   font-size: 16px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    font-size: 14px;
+  }
 `;
 
 const RankingLowerSection = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    font-size: 12px;
+  }
 `;
 
 export default function RatingSection({ animeData }: { animeData: AnimeData }) {

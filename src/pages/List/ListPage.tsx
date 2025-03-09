@@ -14,8 +14,13 @@ const { Search } = Input;
 
 const ListContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20em, auto));
+  grid-template-columns: repeat(auto-fit, minMax(20em, auto));
   gap: 2.5em;
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(auto-fit, minMax(10em, auto));
+    gap: 1em;
+  }
 `;
 
 const PaginationContainer = styled.div`
@@ -117,15 +122,17 @@ export default function ListPage() {
 
   return (
     <>
-      <StyledSearch
-        placeholder="Find your favorite anime..."
-        enterButton="Search"
-        size="large"
-        loading={loading}
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-        onSearch={handleSearchSubmit}
-      />
+      {!showErrorPage && (
+        <StyledSearch
+          placeholder="Find your favorite anime..."
+          enterButton="Search"
+          size="large"
+          loading={loading}
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          onSearch={handleSearchSubmit}
+        />
+      )}
       <ListContainer>
         {notiContextHolder}
         {loading && <Skeleton />}
@@ -142,22 +149,28 @@ export default function ListPage() {
           </>
         )}
       </ListContainer>
-      <PaginationContainer
-        style={{ display: "flex", justifyContent: "center", marginTop: "4em" }}
-      >
-        {animeData && animeData.data.length > 0 && !loading && (
-          <Pagination
-            simple
-            showSizeChanger
-            current={pagination.currentPage}
-            onChange={handlePageChange}
-            onShowSizeChange={handlePageSizeChange}
-            total={animeData.pagination.items.total}
-            pageSize={pagination.pageSize}
-            pageSizeOptions={[10, 15, 25]}
-          />
-        )}
-      </PaginationContainer>
+      {!showErrorPage && (
+        <PaginationContainer
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "4em",
+          }}
+        >
+          {animeData && animeData.data.length > 0 && !loading && (
+            <Pagination
+              simple
+              showSizeChanger
+              current={pagination.currentPage}
+              onChange={handlePageChange}
+              onShowSizeChange={handlePageSizeChange}
+              total={animeData.pagination.items.total}
+              pageSize={pagination.pageSize}
+              pageSizeOptions={[10, 15, 25]}
+            />
+          )}
+        </PaginationContainer>
+      )}
     </>
   );
 }
