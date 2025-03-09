@@ -14,8 +14,13 @@ const { Search } = Input;
 
 const ListContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20em, auto));
+  grid-template-columns: repeat(auto-fit, minMax(20em, auto));
   gap: 2.5em;
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(auto-fit, minMax(10em, auto));
+    gap: 1em;
+  }
 `;
 
 const PaginationContainer = styled.div`
@@ -117,6 +122,7 @@ export default function ListPage() {
 
   return (
     <>
+      {/* TODO: wrap this inside search */}
       <StyledSearch
         placeholder="Find your favorite anime..."
         enterButton="Search"
