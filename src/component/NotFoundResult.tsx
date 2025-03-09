@@ -1,5 +1,11 @@
 import { Result, Button } from "antd";
 import { useNavigate } from "react-router";
+import { styled } from "styled-components";
+
+const StyledButton = styled(Button)`
+  background-color: #eb2f96;
+  color: white;
+`;
 
 function NotFoundResult() {
   const navigate = useNavigate();
@@ -11,7 +17,9 @@ function NotFoundResult() {
       subTitle={
         <div>
           <p>Sorry, the page you visited does not exist.</p>
-          <Button onClick={() => navigate("/")}>Back to Homepage</Button>
+          <StyledButton onClick={() => navigate("/")}>
+            Back to Homepage
+          </StyledButton>
         </div>
       }
     />
